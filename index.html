@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Pemro web Aini </title>
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<style>
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .btn-custom{
+    color:#ff4878;
+    background-color: #ffb5e1;
+    font-size: 1rem;
+    font-weight: bold;
+    width: 100%;
+    height: 50px;
+    
+  }
+  .btn-custom:hover{
+    color:#ffff;
+    background-color: #ff4878;
+  }
+  .link {
+    color: #ff4878;
+    text-decoration: none;
+  }
+  .link:hover {
+    text-decoration: underline;
+  }
+  .container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .hero {
+    background: linear-gradient(
+        rgba(255, 105, 180, 0.4),
+        rgba(255, 105, 180, 0.4)
+      ),
+      url("../img/banner.jpg") no-repeat center center/cover;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+  }
+
+  .nav-tabs {
+    display: flex;
+    background-color: #ff4878;
+  }
+  .nav-tabs a {
+    padding: 14px 20px;
+    display: block;
+    color: white;
+    text-decoration: none;
+  }
+  .nav-tabs a:hover {
+    background-color: #ffb5e1;
+    outline: 2px solid #ffb5e1;
+    outline-offset: 0px;
+  }
+  .active {
+    background-color: #ffb5e1;
+    color: #ff4878;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  .dropdown-content a:hover {
+    background-color: #f1f1f1;
+  }
+  .dropdown:hover .dropdown-content {
+    display: block;
+    display: flex;
+  }
+  .tab-content {
+    padding: 20px;
+  }
+
+  .dataTables_wrapper .dataTables_filter {
+    margin-bottom: 20px; /* Sesuaikan jarak sesuai keinginan */
+  }
+
+  /* Animasi hover pada foto pembuat */
+  .pembuat-foto {
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+  }
+
+  /* Kontainer untuk memastikan ukuran sesuai */
+  .position-relative {
+    position: relative;
+    max-width: 100%; /* Membatasi lebar sesuai dengan kolom */
+    display: inline-block;
+  }
+
+  /* Gaya overlay yang muncul saat hover */
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 105, 180, 0.4); /* Warna semi-transparan */
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Konten dalam overlay (nama dan jurusan) */
+  .overlay-content {
+    color: #fff;
+    text-align: center;
+  }
+
+  .pembuat-foto:hover + .overlay,
+  .overlay:hover {
+    opacity: 1;
+  }
+
+  .pembuat-foto:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(255, 105, 180, 0.4);
+  }
+  
+    /* Gaya dasar untuk tab dan label */
+.tab-label {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+input[type="radio"] {
+  display: none; /* Sembunyikan radio button */
+}
+
+/* Gaya konten tab */
+.tab-content {
+  display: none;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+/* Tampilkan konten saat radio button terpilih */
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3 {
+  display: block;
+}
+
+/* Gaya label untuk tab yang terpilih */
+#tab1:checked + .tab-label,
+#tab2:checked + .tab-label,
+#tab3:checked + .tab-label {
+  background-color: hotpink;
+  color: #ffffff;
+}
+
+</style>
+<body>
+    <audio autoplay loop>
+        <source src="audio/backsound.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+
+      <div class="hero text-center" >
+        <h1 class="fw-bold">Selamat Datang<br>di Website Dasprog</h1>
+      </div>
+<div class="container">
+    <div class="tabs">
+        <!-- Input untuk mengontrol tab -->
+        <input type="radio" id="tab1" name="tab" checked>
+        <label for="tab1" class="tab-label">Bahasa Pemrograman</label>
+      
+        <input type="radio" id="tab2" name="tab">
+        <label for="tab2" class="tab-label">Pekerjaan & Salary</label>
+      
+        <input type="radio" id="tab3" name="tab">
+        <label for="tab3" class="tab-label">Tentang</label>
+      
+        <!-- Konten untuk setiap tab -->
+        <div class="tab-content" id="content1">
+          <h2 class="fw-bold">Bahasa Pemrograman</h2>
+          <p>Bahasa pemrograman adalah alat yang membantu programmer menulis instruksi a
+            gar komputer dapat menjalankan tugas tertentu. Alasannya, komputer hanya memahami 
+            sistem bilangan biner, yaitu “1” dan “0”. Untuk memungkinkan programmer memberikan 
+            perintah yang dimengerti logika komputer, dibutuhkan bahasa pemrograman sebagai jembatan
+             komunikasi. Itulah tujuan utama dibuatnya bahasa pemrograman.</p>
+             <div class="row">
+                <!-- Column for Video -->
+                <div class="col-md-6 mb-4">
+                  <div class="ratio ratio-16x9">
+                    <video controls class="w-100">
+                        <source src="video/Apa itu Pemrograman_ - Web Programming UNPAS (1080p, h264, youtube).mp4" type="video/mp4">
+                        Browser Anda tidak mendukung elemen video.
+                      </video>
+                  </div>
+                  <p class="text-end mt-2">Sumber: <a class="link" href="https://www.youtube.com/watch?v=jGyYuQf-GeE&list=PLFIM0718LjIWonBxVAM2NgNuW0YxQverx">youtube.com</a></p>
+                </div>
+            
+                <!-- Column for Audio -->
+                <div class="col-md-6 mb-4 d-flex justify-content-center">
+                  <audio controls class="w-100">
+                    <source src="audio/Apa itu Pemrograman.mp3" type="audio/mp3">
+                  </audio>
+                </div>
+              </div>
+        
+
+            <h2 class="fw-bold">Apa Fungsi Bahasa Pemrograman?</h2>
+            <p>Fungsi bahasa dalam kehidupan manusia adalah sebagai alat komunikasi yang dapat dipahami. Begitu pula dengan bahasa pemrograman, yang berfungsi sebagai penghubung komunikasi antara komputer dan manusia (programmer). Namun, bahasa manusia dengan komputer tentu berbeda. Hasil dari bahasa pemrograman adalah sistem operasi, aplikasi desktop, aplikasi mobile, website, hingga perangkat teknologi yang kita gunakan sehari-hari seperti ponsel.</p>
+            
+            <h2 class="fw-bold">Jenis-jenis Bahasa Pemrograman</h2>
+            <div class="row">
+                <!-- Kolom pertama -->
+                <div class="col-md-6">
+                <ol>
+                    <li class="fw-bold">Low-level language atau bahasa mesin</li>
+                    <p>Bahasa pemrograman tingkat rendah adalah bahasa yang dekat dengan kode mesin atau bahasa asli komputer. Bahasa ini sulit dibaca manusia karena erat dengan penulisan kode mesin dan berhubungan langsung dengan komponen hardware komputer. Instruksi dari bahasa tingkat rendah bersifat kontrol langsung, sehingga masih diperlukan untuk fungsi yang terkait dengan struktur fisik komputer.</p>
+                    
+                    <li class="fw-bold">Assembly language atau bahasa rakitan</li>
+                    <p>Assembly language adalah bahasa pemrograman tingkat rendah yang dirancang agar dapat dipahami manusia. Meskipun masih termasuk low-level language, bahasa ini lebih mudah dipahami daripada bahasa mesin. Bahasa ini digunakan sebagai penghubung antara bahasa pemrograman tingkat tinggi (seperti Python atau SQL) dengan hardware dasar komputer.</p>
+                    
+                    <li class="fw-bold">High-level language atau bahasa tingkat tinggi</li>
+                    <p>Bahasa pemrograman tingkat tinggi lebih dekat dengan cara manusia berkomunikasi. Dalam high-level language, kata-kata yang digunakan mencakup istilah yang mudah dipahami seperti order, request, run, dan object. Bahasa ini lebih manusiawi dan mudah dipelajari oleh programmer.</p>
+                </ol>
+                </div>
+        
+        <!-- Kolom kedua -->
+        <div class="col-md-6 text-center">
+          <img src="img/language-generation.jpg" alt="language" class="img-fluid">
+          <p class="text-end mt-2">Sumber: <a class="link" href="https://www.geeksforgeeks.org/generation-programming-languages/">geeksforgeeks.org</a></p>
+        </div>
+                <!-- Dart -->
+            <div class="card shadow-sm mb-4">
+                <div class="row g-0"> 
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h3 class="card-title">Dart</h3>
+                            <p>Dart adalah bahasa pemrograman yang dikembangkan oleh Google untuk pengembangan aplikasi frontend, terutama yang berjalan di Flutter untuk aplikasi mobile. Dart dikenal dengan kemampuannya yang cepat dan sintaks yang mirip dengan JavaScript.</p>
+                            <h4>Fitur Utama Dart</h4>
+                            <ul>
+                                <li><b>Optimasi:</b> Memiliki performa tinggi dan cepat untuk aplikasi mobile.</li>
+                                <li><b>Null Safety:</b> Fitur untuk mengurangi kesalahan yang berhubungan dengan nilai null.</li>
+                            </ul>
+                            <h4>Contoh Kode Dart</h4>
+                            <pre>
+        void main() {
+            print('Hello, World!');
+        }
+                            </pre>
+                            <h5>Output:</h5>
+                            <div class="alert alert-success">Hello, World!</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/sqE-J8YJnpg" title="Dart Tutorial" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- C++ -->
+            <div class="card shadow-sm mb-4">
+                <div class="row g-0">
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h3 class="card-title">C++</h3>
+                            <p>C++ adalah bahasa pemrograman berperforma tinggi yang sering digunakan untuk pengembangan perangkat lunak dan aplikasi yang membutuhkan efisiensi tinggi, seperti game dan sistem operasi.</p>
+                            <h4>Fitur Utama C++</h4>
+                            <ul>
+                                <li><b>Performa Tinggi:</b> Memberikan kontrol penuh terhadap hardware.</li>
+                                <li><b>Dukungan Paradigma Beragam:</b> Mendukung pemrograman prosedural, berorientasi objek, dan generik.</li>
+                            </ul>
+                            <h4>Contoh Kode C++</h4>
+                            <pre>
+        #include <iostream>
+        using namespace std;
+        
+        int main() {
+            cout << "Hello, World!" << endl;
+            return 0;
+        }
+                            </pre>
+                            <h5>Output:</h5>
+                            <div class="alert alert-success">Hello, World!</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/vLnPwxZdW4Y" title="C++ Tutorial" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                <!-- Java -->
+                <div class="card shadow-sm mb-4">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h3 class="card-title">Java</h3>
+                                <p>Java adalah bahasa pemrograman berorientasi objek yang dirancang untuk memiliki portabilitas tinggi. Pertama kali dirilis oleh Sun Microsystems pada tahun 1995, Java sangat populer dalam pengembangan aplikasi perusahaan dan aplikasi Android.</p>
+                                <h4>Fitur Utama Java</h4>
+                                <ul>
+                                    <li><b>Portabilitas:</b> Kode Java dapat berjalan di mana saja melalui Java Virtual Machine (JVM).</li>
+                                    <li><b>Keamanan:</b> Java memiliki fitur keamanan bawaan yang kuat.</li>
+                                </ul>
+                                <h4>Contoh Kode Java</h4>
+                                <pre>
+            public class HelloWorld {
+                public static void main(String[] args) {
+                    System.out.println("Hello, World!");
+                }
+            }
+                                </pre>
+                                <h5>Output:</h5>
+                                <div class="alert alert-success">Hello, World!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/grEKMHGYyns" title="Java Tutorial" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Ruby -->
+                <div class="card shadow-sm mb-4">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h3 class="card-title">Ruby</h3>
+                                <p>Ruby adalah bahasa pemrograman dinamis dan berorientasi objek yang terkenal dengan sintaksnya yang mudah dipahami. Ruby sering digunakan dalam pengembangan aplikasi web menggunakan framework Ruby on Rails.</p>
+                                <h4>Fitur Utama Ruby</h4>
+                                <ul>
+                                    <li><b>Dinamis dan Fleksibel:</b> Mendukung metaprogramming dan sangat dinamis.</li>
+                                    <li><b>Framework Ruby on Rails:</b> Menyediakan cara cepat untuk membangun aplikasi web menggunakan pola MVC.</li>
+                                </ul>
+                                <h4>Contoh Kode Ruby</h4>
+                                <pre>
+            def hello_world
+                puts "Hello, World!"
+            end
+            
+            hello_world
+                                </pre>
+                                <h5>Output:</h5>
+                                <div class="alert alert-success">Hello, World!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/t_ispmWmdjY" title="Ruby Tutorial" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Swift -->
+                <div class="card shadow-sm mb-4">
+                    <div class="row g-0">
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <h3 class="card-title">Swift</h3>
+                                <p>Swift adalah bahasa pemrograman yang dikembangkan oleh Apple untuk menggantikan Objective-C. Digunakan untuk membangun aplikasi iOS dan macOS, Swift dirancang untuk efisiensi dan keamanan.</p>
+                                <h4>Fitur Utama Swift</h4>
+                                <ul>
+                                    <li><b>Efisiensi dan Performa Tinggi:</b> Swift dirancang agar cepat dan efisien.</li>
+                                    <li><b>Keamanan:</b> Mengurangi kesalahan dengan pengelolaan memori otomatis dan tipe yang aman.</li>
+                                </ul>
+                                <h4>Contoh Kode Swift</h4>
+                                <pre>
+            import SwiftUI
+            
+            struct ContentView: View {
+                var body: some View {
+                    Text("Hello, World!")
+                }
+            }
+                                </pre>
+                                <h5>Output:</h5>
+                                <div class="alert alert-success">Hello, World!</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="ratio ratio-16x9">
+                                <iframe src="https://www.youtube.com/embed/comQ1-x2a1Q" title="Swift Tutorial" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-content" id="content2">
+            <h2>Pekerjaan & Salary</h2>
+            <p>Berikut adalah beberapa pekerjaan yang populer dalam industri teknologi di Indonesia, terutama yang membutuhkan keahlian dalam bahasa pemrograman, beserta rata-rata gaji bulanannya:</p>
+      
+            <div class="table-responsive">
+              <table class="table table-striped table-bordered">
+                <thead class="table-light">
+                  <tr>
+                    <th>Posisi</th>
+                    <th>Deskripsi</th>
+                    <th>Rata-rata Gaji Bulanan (IDR)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Software Engineer</td>
+                    <td>Merancang, mengembangkan, dan menguji perangkat lunak untuk berbagai keperluan. Menguasai bahasa pemrograman seperti Python, Java, dan C++.</td>
+                    <td>Rp 8.300.000</td>
+                  </tr>
+                  <tr>
+                    <td>Backend Developer</td>
+                    <td>Berfokus pada pengembangan sisi server dari sebuah aplikasi atau situs web, termasuk pengelolaan database dan logika bisnis.</td>
+                    <td>Rp 9.900.000 - Rp 16.400.000</td>
+                  </tr>
+                  <tr>
+                    <td>Frontend Developer</td>
+                    <td>Mengembangkan antarmuka pengguna situs web dan aplikasi menggunakan HTML, CSS, dan JavaScript.</td>
+                    <td>Rp 10.700.000 - Rp 18.225.000</td>
+                  </tr>
+                  <tr>
+                    <td>Fullstack Developer</td>
+                    <td>Menguasai pengembangan sisi frontend dan backend dari aplikasi atau situs web.</td>
+                    <td>Rp 8.700.000 - Rp 13.900.000</td>
+                  </tr>
+                  <tr>
+                    <td>DevOps Engineer</td>
+                    <td>Mengelola proses otomatisasi pengembangan dan penerapan perangkat lunak, serta mengoptimalkan infrastruktur server.</td>
+                    <td>Rp 11.000.000 - Rp 21.700.000</td>
+                  </tr>
+                  <tr>
+                    <td>Data Scientist</td>
+                    <td>Menganalisis data besar untuk menemukan tren dan menghasilkan wawasan bisnis menggunakan Python, R, dan SQL.</td>
+                    <td>Rp 12.000.000 - Rp 25.000.000</td>
+                  </tr>
+                  <tr>
+                    <td>Mobile Developer</td>
+                    <td>Mengembangkan aplikasi untuk perangkat mobile menggunakan Swift, Kotlin, atau framework seperti Flutter.</td>
+                    <td>Rp 13.400.000 - Rp 18.800.000</td>
+                  </tr>
+                  <tr>
+                    <td>System Analyst</td>
+                    <td>Menganalisis dan merancang sistem teknologi informasi untuk mendukung operasional bisnis.</td>
+                    <td>Rp 8.000.000 - Rp 14.000.000</td>
+                  </tr>
+                  <tr>
+                    <td>Quality Assurance (QA) Engineer</td>
+                    <td>Menguji dan memastikan kualitas perangkat lunak sebelum dirilis ke pengguna.</td>
+                    <td>Rp 6.000.000 - Rp 10.000.000</td>
+                  </tr>
+                  <tr>
+                    <td>Network Security Specialist</td>
+                    <td>Melindungi jaringan dan data perusahaan dari ancaman keamanan digital.</td>
+                    <td>Rp 7.000.000 - Rp 10.000.000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+
+        <div class="tab-content" id="content3">
+          <!-- Section Tentang -->
+      <h2><b>Tentang Dasprog</b></h2>
+      <div class="row">
+        <!-- Teks Penjelasan Tentang Website -->
+        <div class="col-md-8">
+          <p>Dasprog adalah platform edukasi online yang <span style="color: #ff4878; font-weight: 700;">didedikasikan khusus untuk membantu pemula</span>  memulai perjalanan mereka dalam dunia pemrograman. Menyadari bahwa belajar bahasa pemrograman <span  style="color: #ff4878; font-weight: 700;">bisa menjadi tantangan yang besar bagi banyak orang,</span>  Dasprog hadir dengan misi untuk menyediakan materi yang mudah dipahami dan terstruktur dengan baik untuk semua kalangan, mulai dari siswa, mahasiswa, hingga para profesional yang ingin mengembangkan keterampilan baru
+            Pada Dasprog, pengguna dapat menemukan <span  style="color: #ff4878; font-weight: 700;">berbagai panduan dasar tentang bahasa pemrograman populer seperti PHP, JavaScript, Python, dan bahasa lainnya</span>  yang banyak digunakan di industri teknologi saat ini. Setiap materi disusun dengan metode pembelajaran yang mudah diikuti, lengkap dengan penjelasan mendalam, contoh kode, serta latihan yang dapat diaplikasikan secara langsung. Harapannya, pengguna tidak hanya memahami teori tetapi juga mendapatkan pengalaman praktis yang berguna.
+          </p>
+        </div>
+        <!-- Gambar Pembuat dengan Efek Hover -->
+        <div class="col-md-4 text-center position-relative">
+          <!-- Gambar Pembuat dengan Efek Hover -->
+          <img src="img/author.jpeg" alt="Foto Pembuat" class="img-fluid pembuat-foto">
+          
+          <!-- Overlay untuk Nama dan Jurusan -->
+          <div class="overlay">
+            <div class="overlay-content">
+              <h4>Nuraini</h4>
+              <p>Prodi : Sistem Informasi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- Section Kontak -->
+      <div class="container mt-5" style="max-width: 1000px;">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4 fw-bold">Contact</h2>
+            <form id="contactForm" class="contact-form">
+              <div class="mb-3">
+                <label for="name" class="form-label">Nama</label>
+                <input type="text" class="form-control" id="name" placeholder="Masukkan Nama Anda" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Masukkan Email Anda" required>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Pesan</label>
+                <textarea class="form-control" id="message" rows="4" placeholder="Masukkan Pesan Anda" required></textarea>
+              </div>
+              <div class="text-center">
+                <button type="button" class="btn btn-custom">
+                  <i class="fab fa-whatsapp"></i> Kirim Pesan
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
